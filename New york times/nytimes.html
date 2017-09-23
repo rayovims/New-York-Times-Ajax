@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NYTimes</title>
+</head>
+
+<body>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  var userInput = "trump"
+  var beginDate = "20160101"
+  var endDate = "20170202"
+  //var pageNumber = 1
+
+  var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+url += '?' + $.param({
+  'api-key': "7385cc61de994eb69461da97038cc32a",
+  'q': userInput,
+  'begin_date': beginDate,
+  'end_date': endDate,
+  //'page': pageNumber,
+});
+console.log(url);
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+  console.log(result);
+}).fail(function(err) {
+  throw err;
+});
+   
+  </script>
+</body>
+
+</html>
+
+

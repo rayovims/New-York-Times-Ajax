@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New York Times Search</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container" id="container">
+	<div id="header" class="jumbotron jumbotron-fluid text-center">
+    <h1 class="display-4 center">New York Times Search</h1>
+</div>
+<div class="card">
+  <div class="card-header" id="card1">
+    Search Engine
+  </div>
+<form id="form" class="container">
+	<div id="row" class="col-sm-12">
+	</div>
+  <div class="form-group">
+    <label for="searchTerm">Search Terms</label>
+    <input type="text" class="form-control" id="search" placeholder="Search for an article">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Number of Records to Retrive</label>
+    <select class="form-control" id="numOfRecords">
+      <option>1</option>
+      <option>5</option>
+      <option>10</option>
+    </select>
+  </div>
+    <div class="form-group">
+    <label for="startYear">Start Year (Optional)</label>
+    <input type="startYear" class="form-control" id="startYear">
+  </div>
+    <div class="form-group">
+    <label for="endYear">End Year (Optional)</label>
+    <input type="endYear" class="form-control" id="endYear">
+    <button id="searchBtn" type="submit" class="btn btn-secondary">Search</button>
+    <button id="clearBtn" type="button" class="btn btn-secondary">Clear Search</button>
+
+  </div>
+</form>
+</div>
+<div class="card" id="card">
+  <h4 class="card-header" id="card2">Top Articles</h4>
+  <div class="card-body">
+	<p id="article">Article goes here</p>
+	<p id="author">Author</p>
+	<p id="section">Section</p>
+	<p id="date">date</p>
+	<p id="link">URL</p>
+</div>
+</div>
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  var userInput = [];
+  var beginDate = "20160101";
+  var endDate = "20170202";
+
+  input = $(this).attr("data-name");
+
+  $("#searchBtn").on("click", function(){
+  	userInput.push(input);
+  })
+
+  //userInput.attr("data-name");
+
+
+  //console.log(userInput)
+  //var pageNumber = 1
+
+  var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+url += '?' + $.param({
+  'api-key': "7385cc61de994eb69461da97038cc32a",
+  'q': userInput,
+  'begin_date': beginDate,
+  'end_date': endDate,
+  //'page': pageNumber,
+});
+console.log(url);
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+  console.log(result);
+}).fail(function(err) {
+  throw err;
+});
+   
+  </script>
+
+</body>
+<style type="text/css">
+	#card2 {
+		color:white;
+		background-color: black;
+	}
+	#card1 {
+		color:white;
+		background-color: black;
+	}
+	#form {
+		position: relative;
+	}
+	#searchBtn {
+		position: relative;
+		top: 10px;
+	}
+	#clearBtn {
+		position: relative;
+		top: 10px;
+	}
+	#container {
+		margin: auto;
+	}
+	#card {
+		position: relative;
+		top: 30px;
+	}
+	#header {
+		color: white;
+		background-color: #4a148c;
+	}
+</style>
+</html>
